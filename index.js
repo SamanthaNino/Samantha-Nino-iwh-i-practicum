@@ -18,15 +18,15 @@ const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
 
 app.get('/', async (req, res) => {
     try {
-      const customObjectData = await axios.get('https://api.hubspot.com/crm/v3/objects/2-20337934/views/all/list', {
+      const books = await axios.get('https://app.hubspot.com/contacts/44341822/objects/2-20337934/views/all/list', {
         headers: {
           Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
           'Content-Type': 'application/json'
         }
       });
   
-      const data = customObjectData.data.results;
-      res.render('customObjectData', { title: 'Custom Object Data', data });
+      const data = books.results;
+      res.render('books', { title: 'Custom Object Data', books });
     } catch (error) {
       console.error(error);
       res.status(500).send('An error occurred while fetching custom object data from HubSpot.');
