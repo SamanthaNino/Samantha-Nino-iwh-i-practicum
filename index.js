@@ -18,7 +18,7 @@ const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
 
 app.get('/', async (req, res) => {
     try {
-      const books = await axios.get('https://api.hubspot.com/crm/v3/objects/2-20337934/views/all/list', {
+      const books = await axios.get('https://app.hubspot.com/contacts/44341822/objects/2-20337934/views/all/list', {
         headers: {
           Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
           'Content-Type': 'application/json'
