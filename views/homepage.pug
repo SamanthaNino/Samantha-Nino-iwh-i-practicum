@@ -1,13 +1,22 @@
-extends layout
-block content
-    hl = pageTitle 
-    table 
-        tr 
-            th Custom Type
-            th Custom Author
-            th Custom Pages
-        each record in crmRecords 
-        tr 
-            td = book_type
-            td = book_author 
-            td = book_pages 
+doctype html 
+html 
+    head 
+    meta (charset = 'utf-8')
+    Title = title 
+    link(rel = 'stylesheet', href = '/css/style.css')
+body
+    a(href = "/update-cob")
+    hl = title 
+
+     table 
+        thead
+            tr 
+                th Custom Type
+                th Custom Author
+                th Custom Pages
+        tbody        
+            each record in crmRecords 
+                tr 
+                    td = book_type
+                    td = book_author 
+                    td = book_pages 
