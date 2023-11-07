@@ -18,22 +18,21 @@ const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
 
 app.get('/', async (req, res) => {
     try {
-      const books = await axios.get('https://app.hubspot.com/contacts/44341822/objects/2-20337934/views/all/list', {
+      const customObjectData = await axios.get('https://api.hubspot.com/crm/v3/objects/2-20337934/views/all/list', {
         headers: {
           Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
           'Content-Type': 'application/json'
         }
       });
   
-      const data = books.data.results;
-      res.render('books', { title: 'Books', data });
+      const data = customObjectData.data.results;
+      res.render('customObjectData', { title: 'Custom Object Data', data });
     } catch (error) {
       console.error(error);
       res.status(500).send('An error occurred while fetching custom object data from HubSpot.');
     }
   });
 
-    
 // TODO: ROUTE 2 - Create a new app.get route for the form to create or update new custom object data. Send this data along in the next route.
 
 // * Code for Route 2 goes here
