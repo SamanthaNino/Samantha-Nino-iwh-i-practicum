@@ -1,0 +1,13 @@
+extends layout
+block content
+    hl = pageTitle 
+    table 
+        tr 
+            th Custom Property 1
+            th Custom Property 2
+            th Custom Property 3
+        each record in crmRecords 
+        tr 
+            td = book_type
+            td = book_author 
+            td = book_pages 
