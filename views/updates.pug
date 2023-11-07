@@ -1,0 +1,16 @@
+extends layout 
+
+block content
+ h1 = Update Custom Object Form | Integrating With HubSpot I Practicum
+ form(action="update-cobj", method = "post")
+
+ label (for = "book_type") Book Type 
+ input (type = "text", name = "book_type")
+ label (for = "book_author") Book Author 
+ input (type = "text", name = "book_author")
+ label (for = "book_pages") Book Pages 
+ input (type = "text", name = "book_pages")
+
+ button(type = "submit") Submit
+
+ a(href = "/")
