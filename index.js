@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const res = require('express/lib/response');
 const app = express();
+require ('dotenv').config();
 
 app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/public'));
@@ -15,7 +16,7 @@ const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
 
 // * Code for Route 1 goes here
 
-app.get('/books', async (req, res) => {
+app.get('/', async (req, res) => {
     try {
       const books = await axios.get('https://api.hubspot.com/crm/v3/objects/2-20337934/views/all/list', {
         headers: {
@@ -32,17 +33,27 @@ app.get('/books', async (req, res) => {
     }
   });
     
-
 // TODO: ROUTE 2 - Create a new app.get route for the form to create or update new custom object data. Send this data along in the next route.
 
 // * Code for Route 2 goes here
 
-app.get()
+app.get('/form', (req, res) => {
+    res.render('Books', {title: 'Books'});
+});
+
 
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
 
 // * Code for Route 3 goes here
 
+app.post('/form', async (req, res) => {
+    try {
+        res.redirect('/');
+    } catch (error) {
+        console.error(error);
+        res.status.apply(500).send('An error occured.');
+    }
+});
 /** 
 * * This is sample code to give you a reference for how you should structure your calls. 
 
