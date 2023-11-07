@@ -38,8 +38,8 @@ app.get('/', async (req, res) => {
 
 // * Code for Route 2 goes here
 
-app.get('/form', (req, res) => {
-    res.render('Books', {title: 'Books'});
+app.get('/update-cobj', (req, res) => {
+    res.render('updates', { pageTitle: 'Update Custom Object Form | Integrating With HubSpot I Practicum.'});
 });
 
 
