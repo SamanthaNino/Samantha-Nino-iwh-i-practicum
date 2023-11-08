@@ -15,7 +15,6 @@ const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
 // TODO: ROUTE 1 - Create a new app.get route for the homepage to call your custom object data. Pass this data along to the front-end and create a new pug template in the views folder.
 
 // * Code for Route 1 goes here
-
 app.get('/', async (req, res) => {
   const homepage = `https://api.hubapi.com/crm/v3/objects/2-20337934?properties=book_type&properties=book_author&properties=book_pages`;
   const headers = {
@@ -23,15 +22,15 @@ app.get('/', async (req, res) => {
     'Content-Type': 'application/json'
     };
 
-    try {
-      const response = await axios.get(homepage, {headers});
-      const data = response.data.results;
-      res.render('homepage', {title: 'Book', data});
-    }
-    catch (error) {
-      console.error(error);
-      res.status(500).send(An error occurred while fetching Books data from HubSpot.');
-    }
+try {
+    const response = await axios.get(homepage, {headers});
+    const data = response.data.results;
+    res.render('homepage', {title: 'Book', data});
+  } 
+  catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while fetching Books data from HubSpot.');
+  }
 });
 
 // TODO: ROUTE 2 - Create a new app.get route for the form to create or update new custom object data. Send this data along in the next route.
@@ -39,7 +38,7 @@ app.get('/', async (req, res) => {
 // * Code for Route 2 goes here
 
 app.get('/update-cobj', (req, res) => {
-    res.render('updates', { pageTitle: 'Update Custom Object Form | Integrating With HubSpot I Practicum.'});
+    res.render('updates', { title: 'Update Custom Object Form | Integrating With HubSpot I Practicum.'});
 });
 
 
@@ -48,32 +47,32 @@ app.get('/update-cobj', (req, res) => {
 // * Code for Route 3 goes here
 
 app.post('/update-cobj', async (req, res) => {
-    try{
-        const {book_type, book_author, book_pages} = req.body;
+  const { book_type, book_author, book_pages } = req.body;
 
-        const newCustomObject = {
-            properties: {
-                book_type,
-                book_author,
-                book_pages,
-            }
-        };
+  const newCustomObject = {
+      properties: {
+          book_type,
+          book_author,
+          book_pages,
+      }
+  };
 
-        const createCustomObjectEndpoint = 'https://app.hubspot.com/contacts/44341822/objects/2-20337934/views/all/list';
-        const headers = {
-          Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
-          'Content-Type': 'application/json'
-    };
-    try {
-      await.axios.post(createCustomObjectEndpoint, newCustomObject, {headers});
-      console.log('Custom Object created successfully');
+  const createCustomObjectEndpoint = `https://api.hubspot.com/crm/v3/objects/2-20337934`;
+  const headers = {
+      Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+      'Content-Type': 'application/json'
+  };
+
+  try {
+      await axios.post(createCustomObjectEndpoint, newCustomObject, { headers });
+      console.log('Custom object created successfully');
       res.redirect('/');
-    }
-    catch (error){
-      console.error('Error creating Custom Object', error);
-      res.status(500).send('An error has occured while creating a custom object in HubSpot.');
-    }
-  });
+  } 
+  catch (error) {
+      console.error('Error creating custom object:', error);
+      res.status(500).send('An error occurred while creating a custom object in HubSpot.');
+  }
+});
 
 // * Localhost
 app.listen(3000, () => console.log('Listening on http://localhost:3000'));
