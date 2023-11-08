@@ -16,7 +16,7 @@ const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
 
 // * Code for Route 1 goes here
 app.get('/', async (req, res) => {
-  const homepage = `https://api.hubapi.com/crm/v3/objects/2-20337934?properties=book_type&properties=book_author&properties=book_pages`;
+  const homepage = `https://api.hubapi.com/crm/v3/objects/2-20337934?properties=book_name&properties=book_type&properties=book_author&properties=book_pages`;
   const headers = {
     Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
     'Content-Type': 'application/json'
@@ -47,10 +47,11 @@ app.get('/update-cobj', (req, res) => {
 // * Code for Route 3 goes here
 
 app.post('/update-cobj', async (req, res) => {
-  const { book_type, book_author, book_pages } = req.body;
+  const { book_name, book_type, book_author, book_pages } = req.body;
 
   const newCustomObject = {
       properties: {
+          book_name,
           book_type,
           book_author,
           book_pages,

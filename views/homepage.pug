@@ -1,41 +1,52 @@
-doctype html 
-html 
-    head 
-    title = title
-    meta (charset = 'utf-8')
+doctype html
+html
+  head
+    title= title
+    meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel = 'stylesheet', href = '/css/style.css')
-    style 
+    link(rel='stylesheet', href='/css/style.css')
+    style.
       body {
-      font-family: Arial, sans-serif;
-      background-color: #f3f3f3;
+        font-family: Arial, sans-serif;
+        background-color: #f3f3f3;
       }
       h1 {
-        text-align: center; 
+        text-align: center;
+        color: #300;
       }
       h2 {
-        text-align: center;
-        margin-top: 20px; 
+       text-align: center; /* Center align the text */
+        margin-top: 20px; /* Add some space from the top */
+        color: #555;
       }
       table {
         width: 80%;
         margin: 20px auto;
         border-collapse: collapse;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background-color: #fff;
       }
-     body
-      h1 Books 
-      h2 
-        a(class={active: currentUrl === '/update-cobj'}, href='/update-cobj') Add/Update this table
-      table
-        thead
-            tr 
-                th Book Type
-                th Book Author
-                th Book Pages
-        tbody        
-            each record in data
-                tr 
-                    td = record.properties.book_type
-                    td = record.properties.book_author 
-                    td = record.properties.book_pages 
+      th, td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+      }
+
+  body
+    h1 Books
+    h2
+      a(class={active: currentUrl === '/update-cobj'}, href='/update-cobj') Add/Update this table
+    table
+      thead
+        tr
+          th Book Name 
+          th Book Type
+          th Book Author
+          th Book Pages
+      tbody
+        each record in data
+          tr
+            td= record.properties.book_name
+            td= record.properties.book_type
+            td= record.properties.book_author
+            td= record.properties.book_pages
