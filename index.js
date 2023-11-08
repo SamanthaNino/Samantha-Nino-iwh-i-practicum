@@ -16,22 +16,23 @@ const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
 
 // * Code for Route 1 goes here
 
-app.get('/book', async (req, res) => {
+app.get('/', async (req, res) => {
+  const homepage = `https://api.hubapi.com/crm/v3/objects/2-20337934?properties=book_type&properties=book_author&properties=book_pages`;
+  const headers = {
+    Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+    'Content-Type': 'application/json'
+    };
+
     try {
-        const book = await axios.get('https://app.hubspot.com/contacts/44341822/objects/2-20337934/views/all/list', {
-        headers: {
-          Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
-          'Content-Type': 'application/json'
-        }
-      });ß
-  
-      const data = book.results;
-      res.render('book', { title: 'Custom Object Data', book: data });
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('An error occurred while fetching custom object data from HubSpot.');
+      const response = await axios.get(homepage, {headers});
+      const data = response.data.results;
+      res.render('homepage', {title: 'Book', data});
     }
-  });
+    catch (error) {
+      console.error(error);
+      res.status(500).send(An error occurred while fetching Books data from HubSpot.');
+    }
+});
 
 // TODO: ROUTE 2 - Create a new app.get route for the form to create or update new custom object data. Send this data along in the next route.
 
@@ -58,19 +59,21 @@ app.post('/update-cobj', async (req, res) => {
             }
         };
 
-        const response = await axios.get('https://app.hubspot.com/contacts/44341822/objects/2-20337934/views/all/list', newCustomObject, {
-        headers: {
+        const createCustomObjectEndpoint = 'https://app.hubspot.com/contacts/44341822/objects/2-20337934/views/all/list';
+        const headers = {
           Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
           'Content-Type': 'application/json'
+    };
+    try {
+      await.axios.post(createCustomObjectEndpoint, newCustomObject, {headers});
+      console.log('Custom Object created successfully');
+      res.redirect('/');
     }
-    });
-    console.log('Book created successfully:', book.data);
-    res.redirect('/');
-} catch (error) {
-    console.error(error);
-    res.status(500).send('An error occurred while fetching custom object data from HubSpot.');
-  }
-});
+    catch (error){
+      console.error('Error creating Custom Object', error);
+      res.status(500).send('An error has occured while creating a custom object in HubSpot.');
+    }
+  });
 
 // * Localhost
 app.listen(3000, () => console.log('Listening on http://localhost:3000'));
