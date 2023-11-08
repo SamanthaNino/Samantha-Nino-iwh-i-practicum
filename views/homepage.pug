@@ -15,8 +15,8 @@ body
                 th Custom Author
                 th Custom Pages
         tbody        
-            each record in crmRecords 
+            each record in books
                 tr 
-                    td = book_type
-                    td = book_author 
-                    td = book_pages 
+                    td = record.book_type
+                    td = record.book_author 
+                    td = record.book_pages 
