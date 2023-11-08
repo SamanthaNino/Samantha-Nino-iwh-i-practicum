@@ -16,17 +16,17 @@ const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
 
 // * Code for Route 1 goes here
 
-app.get('/books', async (req, res) => {
+app.get('/book', async (req, res) => {
     try {
-        const books = await axios.get('https://api.hubspot.com/crm/v3/schemas/2-20337934', {
+        const book = await axios.get('https://app.hubspot.com/contacts/44341822/objects/2-20337934/views/all/list', {
         headers: {
           Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
           'Content-Type': 'application/json'
         }
-      });
+      });ß
   
-      const data = books.results;
-      res.render('books', { title: 'Custom Object Data', books: data });
+      const data = book.results;
+      res.render('book', { title: 'Custom Object Data', book: data });
     } catch (error) {
       console.error(error);
       res.status(500).send('An error occurred while fetching custom object data from HubSpot.');
@@ -46,8 +46,30 @@ app.get('/update-cobj', (req, res) => {
 
 // * Code for Route 3 goes here
 
-app.post('/update-cobj', (req, res) => {
+app.post('/update-cobj', async (req, res) => {
+    try{
+        const {book_type, book_author, book_pages} = req.body;
+
+        const newCustomObject = {
+            properties: {
+                book_type,
+                book_author,
+                book_pages,
+            }
+        };
+
+        const response = await axios.get('https://app.hubspot.com/contacts/44341822/objects/2-20337934/views/all/list', newCustomObject, {
+        headers: {
+          Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+          'Content-Type': 'application/json'
+    }
+    });
+    console.log('Book created successfully:', book.data);
     res.redirect('/');
+} catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while fetching custom object data from HubSpot.');
+  }
 });
 
 // * Localhost
