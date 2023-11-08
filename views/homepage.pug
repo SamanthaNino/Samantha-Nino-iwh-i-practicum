@@ -10,18 +10,32 @@ html
       font-family: Arial, sans-serif;
       background-color: #f3f3f3;
       }
-    a(href = "/update-cob")
-    hl = title 
-
-     table 
+      h1 {
+        text-align: center; 
+      }
+      h2 {
+        text-align: center;
+        margin-top: 20px; 
+      }
+      table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      }
+     body
+      h1 Books 
+      h2 
+        a(class={active: currentUrl === '/update-cobj'}, href='/update-cobj') Add/Update this table
+      table
         thead
             tr 
-                th Custom Type
-                th Custom Author
-                th Custom Pages
+                th Book Type
+                th Book Author
+                th Book Pages
         tbody        
-            each record in books
+            each record in data
                 tr 
-                    td = record.book_type
-                    td = record.book_author 
-                    td = record.book_pages 
+                    td = record.properties.book_type
+                    td = record.properties.book_author 
+                    td = record.properties.book_pages 
